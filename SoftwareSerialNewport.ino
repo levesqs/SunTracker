@@ -1,17 +1,14 @@
 /*
-  Software serial multple serial test
-
- Receives from the hardware serial, sends to software serial.
- Receives from software serial, sends to hardware serial.
-
- The circuit:
- * RX is digital pin 10 (connect to TX of other device)
- * TX is digital pin 11 (connect to RX of other device)
-
- created back in the mists of time
- modified 25 May 2012
- by Tom Igoe
- based on Mikal Hart's example
+ Sun tracker 10
+ 
+ Newport is handled by soft serial port pin 6 & 7 on UNO
+ pin 2 & 3 for stepper axis button
+ pin 4 & 5 for Newport axis button
+ SPI receive pixy cam blocks
+ I2C will call GPS...
+ 
+ modified January 8 , 2017
+ by Steve Levesque
 
  This example code is in the public domain.
 
