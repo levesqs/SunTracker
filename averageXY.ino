@@ -1,3 +1,6 @@
+// code modified by me from the initial demo pixy cam to test functionality
+// 8 jan 2017
+// all pixy licence still apply
 //
 // begin license header
 //
