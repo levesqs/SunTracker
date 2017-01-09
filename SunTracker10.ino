@@ -1,4 +1,13 @@
-
+/* suntracker 10
+ based on Adafruit motor shield over arduino uno to control a stepper with soft serial to command a Newport motor
+ feedback on position is based on pixy cmucam 5 blocks over SPI
+ 4 button provide initial alignement to the sun
+ Uno's USB can interpret or passthru both motor commands with Newport syntax.
+ just missing the GPS over I2C
+ 
+ Steve Levesque
+ 8 jan 2017
+*/
 /* 
 This is a test sketch for the Adafruit assembled Motor Shield for Arduino v2
 It won't work with v1.x motor shields! Only for the v2's with built in PWM
