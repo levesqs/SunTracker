@@ -34,59 +34,60 @@ int method = INTERLEAVE;//MICROSTEP SINGLE DOUBLE INTERLEAVE
 Adafruit_DCMotor *myMotorDC = AFMS.getMotor(1);
 // You can also make another motor on port M2
 //Adafruit_DCMotor *myOtherMotor = AFMS.getMotor(2);
-int iBT=3;
-int iBTr=2;
-int iBTDC=4;
-int iBTDCr=5;
-int inH=11;//int inL=6;
-int ledH=10;//int ledL=4;
-int valH = 1;//int valL = 1;
+int iBT=3;   // step motor + button
+int iBTr=2;  // step motor - button
+int iBTDC=4; // Newport +
+int iBTDCr=5; // Newport -
+int inH=11;  //  opto switch step motor
+int ledH=10;//  output led
+int valH = 1; // 
 int tour=10740;//5372;// step par tour
 int StpAng=0;// step count
-int dest=0;
-char * buf ;
-char * Serbuf;
-char * com ;
+int dest=0; 
+char * buf ; // newport serial command buffer
+char * Serbuf; //buffer serial communication 
+char * com ; // command buffer
 char ch;
 int inited=0;
 int i=0;
-int BTf=0;
-int BTr=0;
-float vi;// vitesse stepper
-float angleX,angleY,SL,SR,MV;
-int runn = 1;
+int BTf=0; // button status
+int BTr=0; // button status
+float vi;// vitesse stepper 
+float angleX,angleY,SL,SR,MV; //stepperX , NewportY angle , stepper Limit angle, 
+int runn = 1; // state of machine
 Pixy pixy;
 uint8_t brightness=25;
 int8_t retbr;
 int nb=0;
-int xs,ys,hs,ws=0;
-double xm,ym,hm,wm,xmp,ymp=0.0;
-SoftwareSerial mySerial(6, 7,false); // RX, TX
+int xs,ys,hs,ws=0; // pixy object info
+double xm,ym,hm,wm,xmp,ymp=0.0; //average object info over many images
+SoftwareSerial mySerial(6, 7,false); // Newport serial pins
 
 void setup() {
-  Serbuf = new char[32 + 1];
+  Serbuf = new char[32 + 1]; // command buffer 
   Serbuf[0] = '\0';
-  buf = new char[32 + 1];
+  buf = new char[32 + 1];  // command buffer
   buf[0] = '\0';
-  com = new char[16 + 1];
+  com = new char[16 + 1]; // command bufffer
   Serial.begin(9600);   // set up Serial library at 9600 bps
   while (!Serial) { ; /*  native USB only */  }
   mySerial.begin(57600);
   pixy.init();
-  if (method==INTERLEAVE)  {tour=10742;}
+  if (method==INTERLEAVE)  {tour=10742;} // method 
+  // micro step does not permit to position to fraction position with current library	
   //pinMode(outpin, OUTPUT);
-  pinMode(ledH, OUTPUT);//pinMode(ledL, OUTPUT);
-  pinMode(inH,INPUT);  //pinMode(inL,INPUT); 
-  pinMode(iBT,INPUT);
+  pinMode(ledH, OUTPUT);// status led
+  pinMode(inH,INPUT);  //stepper opto switch 
+  pinMode(iBT,INPUT);  // buttons
   pinMode(iBTr,INPUT);
   pinMode(iBTDC,INPUT);
   pinMode(iBTDCr,INPUT);
   Serial.println("init motor");
   AFMS.begin();  // create with the default frequency 1.6KHz
   //AFMS.begin(1000);  // OR with a different frequency, say 1KHz
-  initNP();  
+  initNP(); // init newport 
   digitalWrite(ledH, LOW);
-  quickinit();
+  quickinit(); // initialise stepper
   runn=2;
 }// setup
 
